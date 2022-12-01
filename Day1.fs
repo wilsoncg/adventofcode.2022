@@ -14,4 +14,4 @@ let FindMostCalories (i:string) (seperator:string) =
  |> (fun s -> 
    s |> Seq.map (fun t -> (t |> Seq.map tryParseInt |> Seq.choose id |> Seq.sum))
    )
- |> Seq.max
+ |> Seq.sortDescending |> Seq.take 3 |> Seq.sum
