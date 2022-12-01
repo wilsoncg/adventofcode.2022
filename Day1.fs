@@ -9,8 +9,9 @@ let tryParseInt s =
         None
 
 let FindMostCalories (i:string) = 
- let split = i.Split $"{Environment.NewLine}{Environment.NewLine}"
- let parsed = split |> Seq.map tryParseInt
- let choosed = parsed |> Seq.choose id |> Seq.sum
- //parsed |> Option.fold (fun accum x -> accum + x)
- choosed
+ i.Split $"{Environment.NewLine}{Environment.NewLine}"
+  |> Seq.map (fun f -> f.Split $"{Environment.NewLine}")
+ |> (fun s -> 
+   s |> Seq.map (fun t -> (t |> Seq.map tryParseInt |> Seq.choose id |> Seq.sum))
+   )
+ |> Seq.max
