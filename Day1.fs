@@ -8,9 +8,9 @@ let tryParseInt s =
     with :? FormatException -> 
         None
 
-let FindMostCalories (i:string) = 
- i.Split $"{Environment.NewLine}{Environment.NewLine}"
-  |> Seq.map (fun f -> f.Split $"{Environment.NewLine}")
+let FindMostCalories (i:string) (seperator:string) = 
+ i.Split $"{seperator}{seperator}"
+  |> Seq.map (fun f -> f.Split $"{seperator}")
  |> (fun s -> 
    s |> Seq.map (fun t -> (t |> Seq.map tryParseInt |> Seq.choose id |> Seq.sum))
    )

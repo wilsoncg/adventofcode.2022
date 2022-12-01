@@ -9,7 +9,7 @@ let ``Day01 - 1 Elf has 6000 calories`` () =
     let input = "1000
 2000
 3000"
-    let result = Day1.FindMostCalories input
+    let result = Day1.FindMostCalories input Environment.NewLine
     Assert.Equal(6000, result)
 
 [<Fact>]
@@ -28,5 +28,5 @@ let ``Day01 Elf has 24000 calories`` () =
 9000
 
 10000"
-    let result = Day1.FindMostCalories input
+    let result = Day1.FindMostCalories input Environment.NewLine
     Assert.Equal(24000, result)
