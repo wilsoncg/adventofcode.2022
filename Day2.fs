@@ -33,11 +33,15 @@ let RockPaperScissors (i:string) (seperator:string) =
             ("Y", RPS.Paper);
             ("Z", RPS.Scissors)
         ]
-    i.Split seperator //each line
-    |> Seq.map (fun s-> 
+    let scoreHands (s:string) =
         let hands = s.Split ' '
         let opponentHand = lookup[hands[0]]
         let myHand = lookup[hands[1]]
         Score (myHand, opponentHand)
+    i.Split seperator //each line
+    |> Seq.map (fun s-> 
+        match String.IsNullOrEmpty s with
+        | true -> 0
+        | false -> scoreHands s
         )
     |> Seq.reduce (fun x y -> x + y)

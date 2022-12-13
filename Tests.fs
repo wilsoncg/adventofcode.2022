@@ -35,6 +35,19 @@ let ``Day01 Elf has 24000 calories`` () =
 let ``Day02 RockPaperScissors score is 15`` () =
     let input = "A Y
 B X
-C Z"
+C Z
+"
     let result = Day2.RockPaperScissors input Environment.NewLine
     Assert.Equal(15, result)
+
+[<Fact>]
+let ``Day02 RockPaperScissors score is 30`` () =
+    let input = "A Y
+B X
+C Z
+A Y
+B X
+C Z
+"
+    let result = Day2.RockPaperScissors input Environment.NewLine
+    Assert.Equal(30, result)
