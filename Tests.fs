@@ -140,4 +140,36 @@ let ``Day04 Work assignments, no overlapping pairs with double digits``() =
 "
     let result = Day4.WorkAssignments input Environment.NewLine Day4.OverlappingPairs
     Assert.Equal(0, result)
-    
+
+[<Fact>]
+let ``Day04 Work assignments, 0 pairs with any overlap``() =
+    let input = "
+2-4,6-8
+2-3,4-5
+"
+    let result = Day4.WorkAssignments input Environment.NewLine Day4.ConsecutiveOrOverlapping
+    Assert.Equal(0, result)
+
+[<Fact>]
+let ``Day04 Work assignments, 0 pairs with any overlap (reversed)``() =
+    let input = "
+6-8,2-4
+4-5,2-3
+"
+    let result = Day4.WorkAssignments input Environment.NewLine Day4.ConsecutiveOrOverlapping
+    Assert.Equal(0, result)
+
+[<Fact>]
+let ``Day04 Work assignments, 8 pairs with any overlap``() =
+    let input = "
+5-7,7-9
+7-9,5-7
+2-8,3-7
+3-7,2-8
+6-6,4-6
+4-6,6-6
+2-6,4-8
+4-8,2-6
+"
+    let result = Day4.WorkAssignments input Environment.NewLine Day4.ConsecutiveOrOverlapping
+    Assert.Equal(8, result)
