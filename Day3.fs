@@ -5,8 +5,8 @@ open System
 let priority =
     let chars: seq<char> = Seq.append(seq { 'a'..'z' }) (seq { 'A'..'Z' })
     let numbers = seq { 1..52 }
-    let combined = Seq.zip chars numbers
-    Map combined
+    Seq.zip chars numbers
+    |> Map
 
 let Part1 (lines:string array) =
   lines
