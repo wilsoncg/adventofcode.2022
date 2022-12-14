@@ -6,5 +6,5 @@ module Program =
    let file = 
     Path.Combine [| __SOURCE_DIRECTORY__; "input"; "day03-input.txt" |]
     |> File.ReadAllText
-   Day3.RucksackPriority file "\n" |> Console.WriteLine
+   Day3.RucksackPriority file "\n" Day3.Part2 |> Console.WriteLine
    0
