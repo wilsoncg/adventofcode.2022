@@ -60,3 +60,16 @@ C Z
 "
     let result = Day2.RockPaperScissors input Environment.NewLine Day2.ScorePart2
     Assert.Equal(12, result)
+
+[<Fact>]
+let ``Day03 Rucksack priority sum is 157`` ()=
+    let input = "
+vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw
+"
+    let result = Day3.RucksackPriority input Environment.NewLine
+    Assert.Equal(157, result)
