@@ -71,5 +71,18 @@ wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw
 "
-    let result = Day3.RucksackPriority input Environment.NewLine
+    let result = Day3.RucksackPriority input Environment.NewLine Day3.Part1
     Assert.Equal(157, result)
+
+[<Fact>]
+let ``Day03 Rucksack priority sum is 70 when split into chunks``() =
+    let input = "
+vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw
+"
+    let result = Day3.RucksackPriority input Environment.NewLine Day3.Part2
+    Assert.Equal(70, result)

@@ -10,7 +10,7 @@ let priority =
 
 let Part1 (lines:string array) =
   lines
-  |> Array.map (fun s -> 
+  |> Seq.map (fun s -> 
       // each line, split in half, find common letters
       let split = 
         let first = s |> Seq.take (s.Length/2) |> Set
@@ -23,8 +23,25 @@ let Part1 (lines:string array) =
         p
       split)
 
-let RucksackPriority (i:string) (seperator:string) =
+let Part2 (lines:string array) =
+    let intersect (s: string array) =
+        match s.Length with
+        | 3 -> Set.intersect(Set s[0]) (Set s[1]) |> Set.intersect (Set s[2])
+        | 2 -> Set.intersect(Set s[0]) (Set s[1])
+        | _ -> Set.empty
+    lines 
+    |> Array.chunkBySize 3
+    |> Seq.map (fun chunk -> 
+        let common = intersect chunk
+        let p = 
+            common 
+            |> Seq.map (fun f -> priority[f])
+            |> Seq.reduce (+)
+        p
+    )
+
+let RucksackPriority (i:string) (seperator:string) priorityScoring =
     let lines = i.Split seperator |> Array.where (fun f -> not(String.IsNullOrEmpty f))    
     lines
-    |> Part1
+    |> priorityScoring
     |> Seq.reduce (+)
