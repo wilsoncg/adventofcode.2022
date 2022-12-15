@@ -1,8 +1,8 @@
 module Tests
 
 open System
+open System.Collections.Generic
 open Xunit
-open Day1
 
 [<Fact>]
 let ``Day01 - Part1 - 1 Elf has 6000 calories`` () =
@@ -173,3 +173,24 @@ let ``Day04 Work assignments, 8 pairs with any overlap``() =
 "
     let result = Day4.WorkAssignments input Environment.NewLine Day4.ConsecutiveOrOverlapping
     Assert.Equal(8, result)
+
+[<Fact>]
+let ``Day05 Crate stacking, result should be CMZ``() =
+    let input = "    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
+
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2
+"
+    let stackSetup = 
+      [
+        Stack<string>(["Z";"N"]);
+        Stack<string>(["M";"C";"D"]);
+        Stack<string>(["P"]);
+      ]
+    let result = Day5.CrateStacking input Environment.NewLine 4 stackSetup
+    Assert.Equal("CMZ", result)
