@@ -8,6 +8,19 @@ type MoveInstruction =
   // move (number of crates) from (stack i) to (stack j)
   | Instruction of int * int * int
 
+let PuzzleInputStackSetup =
+    [
+    Stack<string>(["R";"G";"J";"B";"T";"V";"Z"]);
+    Stack<string>(["J";"R";"V";"L"]);
+    Stack<string>(["F";"Q";"S"]);
+    Stack<string>(["Z";"H";"N";"L";"F";"V";"Q";"G"]);
+    Stack<string>(["R";"Q";"T";"J";"C";"S";"M";"W"]);
+    Stack<string>(["S";"W";"T";"C";"H";"F"]);
+    Stack<string>(["D";"Z";"C";"V";"F";"N";"J"]);
+    Stack<string>(["L";"G";"Z";"D";"W";"R";"F";"Q"]);
+    Stack<string>(["J";"B";"W";"V";"P"]);
+    ]
+
 let private MoveStacks moves (stacks: list<Stack<string>>) = 
   let regexp = "move (\d+) from (\d+) to (\d+)"
   let toInt s = Int32.Parse s
