@@ -188,9 +188,49 @@ move 1 from 1 to 2
 "
     let stackSetup = 
       [
-        Stack<string>(["Z";"N"]);
-        Stack<string>(["M";"C";"D"]);
-        Stack<string>(["P"]);
+        Day5.CrateStack<string>(["Z";"N"]);
+        Day5.CrateStack<string>(["M";"C";"D"]);
+        Day5.CrateStack<string>(["P"]);
       ]
-    let result = Day5.CrateStacking input Environment.NewLine 4 stackSetup
+    let result = Day5.CrateStacking input Environment.NewLine 4 stackSetup false
     Assert.Equal("CMZ", result)
+
+[<Fact>]
+let ``Day05 Crate stacking, result should be MCD for CrateStacker9001``() =
+    let input = "    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
+
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2
+"
+    let stackSetup = 
+      [
+        Day5.CrateStack<string>(["Z";"N"]);
+        Day5.CrateStack<string>(["M";"C";"D"]);
+        Day5.CrateStack<string>(["P"]);
+      ]
+    let result = Day5.CrateStacking input Environment.NewLine 4 stackSetup true
+    Assert.Equal("MCD", result)
+
+[<Fact>]
+let ``Day05 Crate stacking, result should be DMP for CrateStacker9001``() =
+    let input = "
+    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
+
+move 2 from 2 to 1
+"
+    let stackSetup = 
+      [
+        Day5.CrateStack<string>(["Z";"N"]);
+        Day5.CrateStack<string>(["M";"C";"D"]);
+        Day5.CrateStack<string>(["P"]);
+      ]
+    let result = Day5.CrateStacking input Environment.NewLine 5 stackSetup true
+    Assert.Equal("DMP", result)

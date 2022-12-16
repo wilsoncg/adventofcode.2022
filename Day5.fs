@@ -8,20 +8,31 @@ type MoveInstruction =
   // move (number of crates) from (stack i) to (stack j)
   | Instruction of int * int * int
 
+type CrateStack<'a>(crates:IEnumerable<'a>) =
+    let stack = Stack<'a>(crates)
+    member this.Retrieve() =
+        stack.Pop()
+    member this.Place(crates:IEnumerable<'a>) =
+        Seq.iter (fun f -> stack.Push(f)) crates
+    member this.MoveAtOnce(crates:IEnumerable<'a>) =
+        Seq.iter (fun f -> stack.Push(f)) (crates |> Seq.rev)
+    member this.Peek() =
+        stack.Peek()
+
 let PuzzleInputStackSetup =
     [
-    Stack<string>(["R";"G";"J";"B";"T";"V";"Z"]);
-    Stack<string>(["J";"R";"V";"L"]);
-    Stack<string>(["F";"Q";"S"]);
-    Stack<string>(["Z";"H";"N";"L";"F";"V";"Q";"G"]);
-    Stack<string>(["R";"Q";"T";"J";"C";"S";"M";"W"]);
-    Stack<string>(["S";"W";"T";"C";"H";"F"]);
-    Stack<string>(["D";"Z";"C";"V";"F";"N";"J"]);
-    Stack<string>(["L";"G";"Z";"D";"W";"R";"F";"Q"]);
-    Stack<string>(["J";"B";"W";"V";"P"]);
+        CrateStack<string>(["R";"G";"J";"B";"T";"V";"Z"]);
+        CrateStack<string>(["J";"R";"V";"L"]);
+        CrateStack<string>(["F";"Q";"S"]);
+        CrateStack<string>(["Z";"H";"N";"L";"F";"V";"Q";"G"]);
+        CrateStack<string>(["R";"Q";"T";"J";"C";"S";"M";"W"]);
+        CrateStack<string>(["S";"W";"T";"C";"H";"F"]);
+        CrateStack<string>(["D";"Z";"C";"V";"F";"N";"J"]);
+        CrateStack<string>(["L";"G";"Z";"D";"W";"R";"F";"Q"]);
+        CrateStack<string>(["J";"B";"W";"V";"P"]);
     ]
 
-let private MoveStacks moves (stacks: list<Stack<string>>) = 
+let private MoveStacks moves (stacks: list<CrateStack<string>>) crateMover9001 = 
   let regexp = "move (\d+) from (\d+) to (\d+)"
   let toInt s = Int32.Parse s
   let toInstruction (g:RegularExpressions.GroupCollection) =
@@ -37,9 +48,12 @@ let private MoveStacks moves (stacks: list<Stack<string>>) =
   let popThenPush n i j =
     let popped = [
       for a in 1..n do
-       yield stacks[i-1].Pop()
+       yield stacks[i-1].Retrieve()
     ]
-    Seq.iter (fun f -> stacks[j-1].Push(f)) popped
+    if(crateMover9001) then 
+        stacks[j-1].MoveAtOnce(popped)
+    else
+        stacks[j-1].Place(popped)
     stacks
   moves
   |> Seq.map toMoveInstruction
@@ -49,13 +63,13 @@ let private MoveStacks moves (stacks: list<Stack<string>>) =
     | Instruction (n,i,j) -> popThenPush n i j
   )
 
-let CrateStacking (i:string) (seperator:string) skipN stackSetup =
+let CrateStacking (i:string) (seperator:string) skipN stackSetup crateMover9001 =
     let moves = 
       i.Split seperator 
       |> Array.skip skipN
       |> Array.where (fun f -> not(String.IsNullOrEmpty f))
     let moved =
-      MoveStacks moves stackSetup
+      MoveStacks moves stackSetup crateMover9001
       |> Seq.last
-    let result = List.map (fun (f:Stack<string>) -> f.Pop()) moved
+    let result = List.map (fun (f:CrateStack<string>) -> f.Peek()) moved
     String.Join ("", result)
