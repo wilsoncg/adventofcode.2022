@@ -234,3 +234,10 @@ move 2 from 2 to 1
       ]
     let result = Day5.CrateStacking input Environment.NewLine 5 stackSetup true
     Assert.Equal("DMP", result)
+
+[<Theory>]
+[<InlineData("bvwbjplbgvbhsrlpgdmjqwftvncz", 5)>]
+[<InlineData("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 11)>]
+let ``Day06 PacketMarker``(input, expected) =
+    let result = Day6.StartOfPacketMarker input Environment.NewLine
+    Assert.Equal(expected, result)
